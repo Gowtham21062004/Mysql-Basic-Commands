@@ -1,0 +1,192 @@
+Enter password: ***********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 31
+Server version: 8.0.39 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| form               |
+| information_schema |
+| mysql              |
+| name               |
+| password           |
+| performance_schema |
+| sakila             |
+| student            |
+| sys                |
+| world              |
++--------------------+
+10 rows in set (0.01 sec)
+
+mysql> use student;
+Database changed
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| studentdetails    |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> select*from studentdetails;
++------+---------+-------+---------+-------------+
+| id   | fname   | lname | city    | phonenumber |
++------+---------+-------+---------+-------------+
+|    1 | Ram     | S     | cbe     |   638574125 |
+|    2 | hari    | p     | slm     |   638571875 |
+|    3 | dhanush | v     | chennai |   632584125 |
+|    4 | kart    | k     | bang    |    95784125 |
++------+---------+-------+---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> update studentdetails set fname="mani" where fname="kart";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from studentdetails;
++------+---------+-------+---------+-------------+
+| id   | fname   | lname | city    | phonenumber |
++------+---------+-------+---------+-------------+
+|    1 | Ram     | S     | cbe     |   638574125 |
+|    2 | hari    | p     | slm     |   638571875 |
+|    3 | dhanush | v     | chennai |   632584125 |
+|    4 | mani    | k     | bang    |    95784125 |
++------+---------+-------+---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into studentdetails values(5,"logu","v","karur",669874514);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from studentdetails;
++------+---------+-------+---------+-------------+
+| id   | fname   | lname | city    | phonenumber |
++------+---------+-------+---------+-------------+
+|    1 | Ram     | S     | cbe     |   638574125 |
+|    2 | hari    | p     | slm     |   638571875 |
+|    3 | dhanush | v     | chennai |   632584125 |
+|    4 | mani    | k     | bang    |    95784125 |
+|    5 | logu    | v     | karur   |   669874514 |
++------+---------+-------+---------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> delete from studentdetails where id=5;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from studentdetails;
++------+---------+-------+---------+-------------+
+| id   | fname   | lname | city    | phonenumber |
++------+---------+-------+---------+-------------+
+|    1 | Ram     | S     | cbe     |   638574125 |
+|    2 | hari    | p     | slm     |   638571875 |
+|    3 | dhanush | v     | chennai |   632584125 |
+|    4 | mani    | k     | bang    |    95784125 |
++------+---------+-------+---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table studentdetails add dept int;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table studentdetails add dept varchar(10);
+ERROR 1060 (42S21): Duplicate column name 'dept'
+mysql> alter table studentdetails drop dept;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table studentdetails add dept varchar(10);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into studentdetails values(5,"logu","v","karur",669874514,"AUTO");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from studentdetails;
++------+---------+-------+---------+-------------+------+
+| id   | fname   | lname | city    | phonenumber | dept |
++------+---------+-------+---------+-------------+------+
+|    1 | Ram     | S     | cbe     |   638574125 | NULL |
+|    2 | hari    | p     | slm     |   638571875 | NULL |
+|    3 | dhanush | v     | chennai |   632584125 | NULL |
+|    4 | mani    | k     | bang    |    95784125 | NULL |
+|    5 | logu    | v     | karur   |   669874514 | AUTO |
++------+---------+-------+---------+-------------+------+
+5 rows in set (0.00 sec)
+
+mysql> insert into studentdetails(dept) values("AUTO"),("MECH");
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select*from studentdetails;
++------+---------+-------+---------+-------------+------+
+| id   | fname   | lname | city    | phonenumber | dept |
++------+---------+-------+---------+-------------+------+
+|    1 | Ram     | S     | cbe     |   638574125 | NULL |
+|    2 | hari    | p     | slm     |   638571875 | NULL |
+|    3 | dhanush | v     | chennai |   632584125 | NULL |
+|    4 | mani    | k     | bang    |    95784125 | NULL |
+|    5 | logu    | v     | karur   |   669874514 | AUTO |
+| NULL | NULL    | NULL  | NULL    |        NULL | AUTO |
+| NULL | NULL    | NULL  | NULL    |        NULL | MECH |
++------+---------+-------+---------+-------------+------+
+7 rows in set (0.00 sec)
+
+mysql> alter table studentdetails drop dept;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from studentdetails;
++------+---------+-------+---------+-------------+
+| id   | fname   | lname | city    | phonenumber |
++------+---------+-------+---------+-------------+
+|    1 | Ram     | S     | cbe     |   638574125 |
+|    2 | hari    | p     | slm     |   638571875 |
+|    3 | dhanush | v     | chennai |   632584125 |
+|    4 | mani    | k     | bang    |    95784125 |
+|    5 | logu    | v     | karur   |   669874514 |
+| NULL | NULL    | NULL  | NULL    |        NULL |
+| NULL | NULL    | NULL  | NULL    |        NULL |
++------+---------+-------+---------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> delete from studentdetails where fname=NULL;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from studentdetails;
++------+---------+-------+---------+-------------+
+| id   | fname   | lname | city    | phonenumber |
++------+---------+-------+---------+-------------+
+|    1 | Ram     | S     | cbe     |   638574125 |
+|    2 | hari    | p     | slm     |   638571875 |
+|    3 | dhanush | v     | chennai |   632584125 |
+|    4 | mani    | k     | bang    |    95784125 |
+|    5 | logu    | v     | karur   |   669874514 |
+| NULL | NULL    | NULL  | NULL    |        NULL |
+| NULL | NULL    | NULL  | NULL    |        NULL |
++------+---------+-------+---------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> delete from studentdetails where fname=null;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from studentdetails where fname="hari";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from studentdetails where fname="NULL";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from studentdetails where id=NULL;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
